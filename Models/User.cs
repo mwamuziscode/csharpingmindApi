@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace csharpingmindApi.Models
 
@@ -10,13 +6,13 @@ namespace csharpingmindApi.Models
     public class User
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string UserName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
         public int Age { get; set; }
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; } = string.Empty;
         public DateTime dateOfBirth { get; set; }
         public bool IsActive { get; set; }
         public bool IsSuperuser { get; set; }
@@ -27,15 +23,11 @@ namespace csharpingmindApi.Models
 
         // UserGroup
         public int GroupId { get; set; }
-
-
-
-
-        // Navigation properties
-        // public List<UserGroup> _UserGroups { get; set; } = new List<UserGroup>();
-        // public List<UserPermission> UserUserPermissions { get; set; } = new List<UserPermission>();
+        [JsonIgnore]
+        public virtual Group Group { get; set; }
+        //public List<Permission> Permissions { get; set; } //= new List<UserPermission>();
         // public List<BlogPost> BlogPosts { get; set; } = new List<BlogPost>();
-        // public List<SuperAdminLog> SuperAdminLogs { get; set; } = new List<SuperAdminLog>();
+        //public List<SuperLog> SuperLogs { get; set; } // = new List<SuperAdminLog>();
     }
 }
 

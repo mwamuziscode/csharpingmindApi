@@ -1,6 +1,9 @@
 ﻿using System;
+using csharpingmindApi.Models; // IMPORTED
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace csharpingmindApi.Controllers
 {
@@ -9,10 +12,18 @@ namespace csharpingmindApi.Controllers
 
     public class UserController : ControllerBase
     {
-        [HttpGet]
-        public string GetUser() 
+        private readonly AuthsContext _context;
+        public UserController(AuthsContext context)
         {
-            return "Hello World";
+            _context = context;
+            _context.Database.EnsureCreated();
+        }
+
+
+        [HttpGet]
+        public IEnumerable<User> GetAllUsers() 
+        {
+            return _context.Users.ToArray();
         }
     }
 }
