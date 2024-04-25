@@ -21,9 +21,61 @@ namespace csharpingmindApi.Controllers
 
 
         [HttpGet]
-        public IEnumerable<User> GetAllUsers() 
+        public async Task<ActionResult> GetAllUsers() 
         {
-            return _context.Users.ToArray();
+            var users = await _context.Users.ToArrayAsync();
+            return Ok(users);
         }
+
+        /*  get user by id*/
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetUser(int id)
+        {
+            //return _context.Users.SingleOrDefault(u => u.Id == id);
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+        
+
+        // get user by id
+        [HttpGet("{isActive}")]
+        public async Task<ActionResult<IEnumerable<User>>> GetAvailableUser()
+        {
+            var users = await _context.Users.Where(u => u.IsActive && u.Age >= 30).ToArrayAsync();
+            return users;
+        }
+
+        /*  get user by id*/
+        [HttpGet("{ByGroupId}")]
+        public async Task<ActionResult> GetUserByGroupId(int ByGroupId)
+        {
+            var user = await _context.Users.FindAsync(ByGroupId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> PostUser(User user)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(
+                nameof(GetAllUsers),
+                new {id = user.Id }, user );
+        }
+
+
+        //[HttpPut]
+
+
+
     }
 }

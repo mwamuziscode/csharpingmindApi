@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace csharpingmindApi.Models
@@ -15,7 +16,7 @@ namespace csharpingmindApi.Models
 
         // Navigation properties
         // public List<UserGroupPermission> UserGroupPermissions { get; set; };
-        public virtual List<User> Users { get; set; } // = new List<Users>();
+        public virtual List<User>? Users { get; set; } // = new List<Users>();
     }
 }
 
