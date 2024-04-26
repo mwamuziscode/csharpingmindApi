@@ -19,7 +19,6 @@ namespace csharpingmindApi.Controllers
             _context.Database.EnsureCreated();
         }
 
-
         [HttpGet]
         public async Task<ActionResult> GetAllUsers() 
         {
@@ -78,6 +77,7 @@ namespace csharpingmindApi.Controllers
                 new {id = user.Id }, user );
         }
 
+
         [HttpPut("{id}")]
         public async Task<ActionResult> PutUser(int id, User user)
         {
@@ -121,6 +121,25 @@ namespace csharpingmindApi.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(user);
+        }
+
+
+        [HttpPost("Delete")]
+        public async Task<ActionResult> DeleteMultiple([FromQuery] int[] ids)
+        {
+            var users = new List<User>();
+            foreach (var id in ids)
+            {
+                var user = await _context.Users.FindAsync(id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                users.Add(user);
+            }
+            _context.Users.RemoveRange(users);
+            await _context.SaveChangesAsync();
+            return Ok(users);
         }
     }
 }

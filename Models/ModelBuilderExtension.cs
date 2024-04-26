@@ -11,7 +11,6 @@ namespace csharpingmindApi.Models
             // TODO: Add constructor logic here
             modelBuilder.Entity<Group>().HasData(new Group { Id = 1, Name = "Admin", Description = "The admin can do anythings" });
 
-
             modelBuilder.Entity<User>().HasData(new User
             {
                 Id = 1,
@@ -33,7 +32,7 @@ namespace csharpingmindApi.Models
                 GroupId = 1
             },
 
-                    new User
+           new User
                     {
                         Id = 2,
                         UserName = "rhythmixart",
@@ -132,47 +131,22 @@ namespace csharpingmindApi.Models
         CreatedAt = DateTime.Now,
         UpdatedAt = DateTime.Now,
         GroupId = 1
-    },
-    new User
-    {
-        Id = 7,
-        UserName = "sculptor_space",
-        Email = "sculptor_space@modelart.com",
-        Password = "modeling101",
-        FirstName = "Arnold",
-        LastName = "Clay",
-        Age = 40,
-        PhoneNumber = "434-535-636-73",
-        dateOfBirth = new DateTime(1983, 8, 25),
-        IsActive = false,
-        LastLogin = new DateTime(2022, 1, 17),
-        IsSuperuser = false,
-        IsStaff = false,
-        IsDeleted = false,
-        CreatedAt = DateTime.Now,
-        UpdatedAt = DateTime.Now,
-        GroupId = 3
-    },
-    new User
-    {
-        Id = 8,
-        UserName = "galleryguru",
-        Email = "galleryguru@galleryzone.com",
-        Password = "gallerysecure111",
-        FirstName = "Iris",
-        LastName = "Frame",
-        Age = 26,
-        PhoneNumber = "545-646-747-84",
-        dateOfBirth = new DateTime(1997, 9, 9),
-        IsActive = true,
-        LastLogin = new DateTime(2022, 1, 17),
-        IsSuperuser = false,
-        IsStaff = false,
-        IsDeleted = false,
-        CreatedAt = DateTime.Now,
-        UpdatedAt = DateTime.Now,
-        GroupId = 2
     });
+            
+            modelBuilder.Entity<Permission>().HasData(new Permission { Id = 1, Name = "Admin", Description = "The user have the views right", ContentTypeId = 1, CodeName = "view_article"});
+
+            modelBuilder.Entity<BlogPost>().HasData(new BlogPost
+            {
+                Id = 1, // Since Id is auto-generated, ensure it's set if needed for seeding, otherwise it's managed by the DB.
+                Title = "First Blog Post",
+                Images = "default.jpg", 
+                UpdatedOn = DateTime.UtcNow, 
+                Content = "This is the content of the first blog post.",
+                CreatedOn = DateTime.UtcNow,
+                Status = 1, 
+                AuthorId = 1 
+            });
+
         }
     }
 }
