@@ -1,21 +1,64 @@
+
+/*
 using csharpingmindApi.Models; // IMPORTED
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
+
+
+
+namespace csharpingmindApi
+{
+    public static Program
+    {
+    public static void Main(string[] args){
+        var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddControllers();
+        builder.Services.AddSwaggerGen();
+        builder.Services.AddEndpointsApiExplorer();
+
+        // connect sql database
+        builder.Services.AddDbContext<AuthsContext>(options => 
+        {
+            // UseSqlServer || https://tutorials.eu/how-to-create-a-database-in-asp-net-core/
+            options.UseSqlServer("Server=(localdb)\\mssqlocaldb;Database=csharpingminddb;Trusted_Connection=True;"));
+        })
+
+
+        var app = builder.Build();
+        
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+        
+        app.UseHttpsRedirection();
+        app.UseAuthorization();
+        app.MapControllers();
+        app.UseRouting();
+        app.Run();
+}}}
+
+*/
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using csharpingmindApi.Models; // Make sure this namespace correctly references where your AuthsContext is defined.
+using Pomelo.EntityFrameworkCore.MySql;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers();  // Adds support for controllers.
+builder.Services.AddSwaggerGen();   // Adds Swagger generation.
+builder.Services.AddEndpointsApiExplorer();  // Adds API explorer which Swagger uses.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+// Configure the database context
 builder.Services.AddDbContext<AuthsContext>(options =>
-{
-    options.UseInMemoryDatabase("AuthsDatabase");
-});
-
+    options.UseMySql(builder.Configuration.GetConnectionString("csharpingmindDatabase"),
+        new MySqlServerVersion(new Version(8,0,32))));  // Ensure you specify the correct version of MySQL Server you're using.
 
 var app = builder.Build();
 
@@ -26,68 +69,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
-
+app.UseRouting();
 app.UseAuthorization();
-
 app.MapControllers();
-
-
-// ADDED
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AuthsContext>();
-    await db.Database.EnsureCreatedAsync();
-}
-
-
-app.MapGet("/users", async (AuthsContext _context) =>
-{
-    var user = await _context.Users.ToArrayAsync();
-    return Results.Ok(user);
-
-});
-
-app.MapGet("/users/{id}", async (int id, AuthsContext _context) =>
-{
-    var user = await _context.Users.FindAsync(id);
-    if (user == null)
-    {
-        return Results.NotFound();
-    }
-    return Results.Ok(user);
-});
-
-
-app.MapGet("/groups", async (AuthsContext _context) =>
-{
-    var groups = await _context.Groups.ToArrayAsync();
-    return Results.Ok(groups);
-});
-
-
-app.MapGet("/group/{id}", async (int id, AuthsContext _context) =>
-{
-    var group = await _context.Groups.FindAsync(id);
-    if (group == null)
-    {
-        return Results.NotFound();
-    }
-    return Results.Ok(group);
-});
-
-
-
-app.MapGet("/users/is/isActive", async (AuthsContext _context) =>
-{
-    var users = await _context.Users.Where(u => u.IsActive && u.Age >= 30).ToArrayAsync();
-    return Results.Ok(users);
-});
-
-
-
-
-
-
 
 app.Run();

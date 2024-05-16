@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 
 
 namespace csharpingmindApi.Models
@@ -14,3 +15,5 @@ namespace csharpingmindApi.Models
         public string? CodeName { get; set; }
     }
 }
+
+*/

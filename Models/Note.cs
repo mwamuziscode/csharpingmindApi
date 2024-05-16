@@ -1,32 +1,24 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿/*
+
+using System;
 
 namespace csharpingmindApi.Models
 {
-    public class BlogPost
+    public class Note
     {
-        public long Id { get; set; }
-
-        [JsonRequired]
+        public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
-
-        [JsonRequired]
         public string Images { get; set; } = string.Empty;
-
         public DateTime UpdatedOn { get; set; }
-
-        [JsonRequired]
         public string Content { get; set; } = string.Empty;
-
         public DateTime CreatedOn { get; set; }
-
-        [JsonRequired]
         public int Status { get; set; }
 
-        [JsonRequired]
+        // Add this line to define AuthorId property
         public int AuthorId { get; set; }
 
-        [JsonIgnore]
+        // Add this line to define Author property
         public virtual User? Author { get; set; }
     }
 }
+*/

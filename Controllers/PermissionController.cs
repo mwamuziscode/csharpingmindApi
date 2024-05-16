@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using csharpingmindApi.Models; // IMPORTED
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,8 @@ namespace csharpingmindApi.Controllers
             _context.Database.EnsureCreated();
         }
 
+        
+
         [HttpGet]
         public async Task<ActionResult> GetAllPermisions()
         {
@@ -28,19 +31,6 @@ namespace csharpingmindApi.Controllers
         public async Task<ActionResult> GetPermission(int id)
         {
             var perms = await _context.Permissions.FindAsync(id);
-            if (perms == null)
-            {
-                return NotFound();
-            }
-            return Ok(perms);
-        }
-
-
-
-        [HttpGet("{contentTypeId}")]
-        public async Task<ActionResult> GetPermissionContentTypeId(int contentTypeId)
-        {
-            var perms = await _context.Permissions.FindAsync(contentTypeId);
             if (perms == null)
             {
                 return NotFound();
@@ -62,7 +52,7 @@ namespace csharpingmindApi.Controllers
 
             return CreatedAtAction(nameof(GetAllPermisions), new { id = permission.Id });
         }
-
+/*
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePermissions(int id)
@@ -108,10 +98,8 @@ namespace csharpingmindApi.Controllers
 
             return NoContent();
         }
-
-
-
-
+        
 
     }
 }
+*/

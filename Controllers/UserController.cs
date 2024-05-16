@@ -41,7 +41,7 @@ namespace csharpingmindApi.Controllers
         
 
         // get user by id
-        [HttpGet("{isActive}")]
+        [HttpGet("user/{isActive}")]
         public async Task<ActionResult<IEnumerable<User>>> GetAvailableUser()
         {
             var users = await _context.Users.Where(u => u.IsActive && u.Age >= 30).ToArrayAsync();
@@ -49,7 +49,7 @@ namespace csharpingmindApi.Controllers
         }
 
         /*  get user by id*/
-        [HttpGet("{ByGroupId}")]
+        [HttpGet("group/{ByGroupId}")]
         public async Task<ActionResult> GetUserByGroupId(int ByGroupId)
         {
             var user = await _context.Users.FindAsync(ByGroupId);
