@@ -12,8 +12,8 @@ namespace csharpingmindApi.Controllers
 
     public class UserController : ControllerBase
     {
-        private readonly AuthsContext _context;
-        public UserController(AuthsContext context)
+        private readonly UsersContext _context;
+        public UserController(UsersContext context)
         {
             _context = context;
             _context.Database.EnsureCreated();

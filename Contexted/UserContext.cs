@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace csharpingmindApi.Models
 {
-    public class AuthsContext : DbContext
+    public class UsersContext : DbContext
     {
-        public AuthsContext(DbContextOptions<AuthsContext> options) : base(options) { }
+        public UsersContext(DbContextOptions<UsersContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
 
@@ -28,9 +28,15 @@ namespace csharpingmindApi.Models
                       .IsRequired()
                       .HasMaxLength(100);
 
-                entity.Property(e => e.Password)
-                      .IsRequired()
-                      .HasMaxLength(255);
+                  entity.Property(e => e.Password)
+                        .IsRequired()
+                        .HasMaxLength(255)
+
+                  // Ensure password is hashed and not stored in plain text
+                    .HasConversion(v => BC.HashPassword(v), v => v); // Store only hashed passwords
+
+
+
 
                 entity.Property(e => e.FirstName)
                       .IsRequired()

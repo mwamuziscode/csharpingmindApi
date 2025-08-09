@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace csharpingmindApi.Models
 {
@@ -25,8 +27,15 @@ namespace csharpingmindApi.Models
 
         public int Age { get; set; }
 
+        public int? AuthGroupId { get; set; }
+
+        // Navigation property
+        [ForeignKey("AuthGroupId")]
+        public virtual AuthGroup? Group { get; set; }
+
         [JsonRequired]
         public string PhoneNumber { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
 
         public DateTime DateOfBirth { get; set; }
         public bool IsActive { get; set; }
