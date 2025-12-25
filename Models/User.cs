@@ -27,11 +27,11 @@ namespace csharpingmindApi.Models
 
         public int Age { get; set; }
 
-        public int? AuthGroupId { get; set; }
+        public int? GroupId { get; set; }
 
         // Navigation property
-        [ForeignKey("AuthGroupId")]
-        public virtual AuthGroup? Group { get; set; }
+        [ForeignKey("GroupId")]
+        public virtual Group? Group { get; set; }
 
         [JsonRequired]
         public string PhoneNumber { get; set; } = string.Empty;

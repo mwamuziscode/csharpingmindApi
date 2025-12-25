@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace csharpingmindApi.Models
 {
-    public class AuthGroup
+    public class Group
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

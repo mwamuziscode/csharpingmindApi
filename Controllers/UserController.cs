@@ -3,6 +3,7 @@ using csharpingmindApi.Models; // IMPORTED
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using csharpingmindApi.Models.Contexted;
 
 
 namespace csharpingmindApi.Controllers
